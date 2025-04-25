@@ -1,7 +1,5 @@
 import "./styles.css";
-import { greeting } from "./functions.js";
-
-greeting('Adebayo');
+import { addNewProjectEle } from "./projects";
 
 const displayEle = document.querySelector('.js-display');
 const displayWarningEle = document.querySelector('.display-warning');
@@ -95,6 +93,7 @@ function clearUserInput() {
 
 // Add Event Listener to Add button and check it some boxes are blank
 addBtnEle.addEventListener('click', () => {
+    // Check if the required boxes are filled
     if (titleEle.value === '' || descriptionEle.value === '' || dueDateEle.value === '' || priorityEle.value === '') {
         console.log("An important field is empty")
         totalHtml = "An important field is empty. Please, fill all the boxes!!!";
