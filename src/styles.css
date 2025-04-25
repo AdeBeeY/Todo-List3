@@ -1,3 +1,17 @@
 body {
   background-color: pink;
 }
+
+.display,
+.input-container {
+  display: grid;
+  grid-template-columns: 150px 250px 100px 80px 200px 100px;
+  padding: 10px;
+  gap: 20px;
+}
+
+.display-warning {
+  padding: 10px;
+  font-size: 20px;
+  color: red;
+}
