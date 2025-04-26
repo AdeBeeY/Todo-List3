@@ -2,12 +2,19 @@ body {
   background-color: pink;
 }
 
-.display,
-.input-container {
+.display {
   display: grid;
-  grid-template-columns: 150px 250px 100px 80px 200px 100px;
+  grid-template-columns: 150px 250px 100px 80px 320px 100px;
   padding: 10px;
   gap: 20px;
+}
+
+.input-container {
+  display: none;
+  grid-template-columns: 150px 250px 100px 80px 200px 100px 100px;
+  padding: 10px;
+  gap: 20px;
+  background-color: lightslategray;
 }
 
 .display-warning {

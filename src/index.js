@@ -9,6 +9,14 @@ const dueDateEle = document.querySelector('.dueDate');
 const priorityEle = document.querySelector('.priority');
 const noteEle = document.querySelector('.note');
 const addBtnEle = document.querySelector('.js-add-btn');
+const addNewTaskBtnEle = document.querySelector('.add-new-task');
+const inputContainerEle = document.querySelector('.input-container');
+
+addNewTaskBtnEle.addEventListener('click', () => {
+    inputContainerEle.style = "display: grid";
+
+    addNewTaskBtnEle.style = "display: none";
+})
 
 let myTodoList = [];
 class Todo {
@@ -114,6 +122,8 @@ addBtnEle.addEventListener('click', () => {
         // console.log(generateHtml())
         renderTodoHtml();
         clearUserInput();
+        addNewTaskBtnEle.style = "display: block";
+        inputContainerEle.style = "display: none";
     }
 })
 

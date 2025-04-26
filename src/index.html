@@ -14,7 +14,7 @@
     <h2 class="projects-header">Projects:</h2>
     <button class="create-new-project">Create New Project</button>
 
-    <div class="add-new-project-box">
+    <div class="add-new-project-box" style="display: none;">
       <input class="new-project" placeholder="Create a new project">
       <button class="add-new-project">Add New Project</button>
     </div>
@@ -23,7 +23,10 @@
     <ul id="checklist" class="checklist">
       <li><input id="default-project" type="checkbox" checked> Default Project</li>
     </ul>
+    <div class="display-projects"></div>
   </div>
+
+  <button class="add-new-task">Add New Task</button>
 
   <div class="input-container">
     <input class="title" placeholder="Title" required>
@@ -31,6 +34,10 @@
     <input class="dueDate" type="date" required>
     <input class="priority" placeholder="Priority" required>
     <input class="note" placeholder="Note">
+
+    <div class="select-project">
+
+      Where to add your task</div>
 
     <button class="addBtn js-add-btn">Add</button>
   </div>
