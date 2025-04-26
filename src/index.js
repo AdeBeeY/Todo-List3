@@ -1,5 +1,7 @@
 import "./styles.css";
-import { addNewProjectEle } from "./projects";
+import { addNewProjectEle, Project, projects, currentProjectIndex, createNewProjectBtnEle, setupCheckboxListeners, init } from "./projects";
+
+export { renderTodoHtml }
 
 const displayEle = document.querySelector('.js-display');
 const displayWarningEle = document.querySelector('.display-warning');
@@ -11,12 +13,6 @@ const noteEle = document.querySelector('.note');
 const addBtnEle = document.querySelector('.js-add-btn');
 const addNewTaskBtnEle = document.querySelector('.add-new-task');
 const inputContainerEle = document.querySelector('.input-container');
-
-addNewTaskBtnEle.addEventListener('click', () => {
-    inputContainerEle.style = "display: grid";
-
-    addNewTaskBtnEle.style = "display: none";
-})
 
 let myTodoList = [];
 class Todo {
@@ -31,11 +27,15 @@ class Todo {
 
 // Create a new Task
 function createNewTask(title, description, dueDate, priority, note) {
-    const latestTask = new Todo(title, description, dueDate, priority, note);
-    return latestTask;
+    return new Todo(title, description, dueDate, priority, note);
 }
 
 // Add task into myTodoList
+// function addNewTask(todo) {
+//     myTodoList.push(todo);
+//     return myTodoList;
+// }
+
 function addNewTask(todo) {
     myTodoList.push(todo);
     return myTodoList;
@@ -48,9 +48,10 @@ addNewTask(createNewTask('Cinema', 'John Wick', '15-05-2025', 'Normal', 'Go with
 addNewTask(createNewTask('Vacation', 'London with family', '06-05-2025', 'Important', 'Remember to top-up Debit cards'));
 addNewTask(createNewTask('Tour', 'U.S', '08-05-2025', 'Normal', 'See things a new'));
 
-console.table(myTodoList);
+// console.table(myTodoList);
 // console.log(myTodoList);
 
+console.log(myTodoList)
 
 let totalHtml = '';
 
@@ -58,19 +59,17 @@ let totalHtml = '';
 function generateHtml() {
     totalHtml = '';
 
-    myTodoList.forEach((item, index) => {
-        const html = `
-            <div class='title'>${item.title}</div>
-            <div class='description'>${item.description}</div>
-            <div class='dueDate'>${item.dueDate}</div>
-            <div class='priority'>${item.priority}</div>
-            <div class='note'>${item.note}</div>
-            <button class='js-delete-btn' data-index='${index}'>Delete</button>
-        `;
-
-        console.log(html);
-        totalHtml += html;
+    myTodoList.forEach((todo, index) => {
+        totalHtml += `
+        <div class='title'>${todo.title}</div>
+        <div class='description'>${todo.description}</div>
+        <div class='dueDate'>${todo.dueDate}</div>
+        <div class='priority'>${todo.priority}</div>
+        <div class='note'>${todo.note}</div>
+        <button class='js-delete-btn' data-index='${index}'>Delete</button>
+      `;
     });
+    console.log(totalHtml)
     return totalHtml;
 };
 
@@ -90,7 +89,7 @@ function renderTodoHtml() {
 };
 renderTodoHtml();
 
-// Clear data inputted by user
+// Clear user input
 function clearUserInput() {
     titleEle.value = '';
     descriptionEle.value = '';
@@ -103,28 +102,27 @@ function clearUserInput() {
 addBtnEle.addEventListener('click', () => {
     // Check if the required boxes are filled
     if (titleEle.value === '' || descriptionEle.value === '' || dueDateEle.value === '' || priorityEle.value === '') {
-        console.log("An important field is empty")
-        totalHtml = "An important field is empty. Please, fill all the boxes!!!";
         displayEle.innerHTML = '';
-        displayWarningEle.innerHTML = totalHtml;
-    } else {
-        const title = titleEle.value;
-        const description = descriptionEle.value;
-        const dueDate = dueDateEle.value;
-        const priority = priorityEle.value;
-        const note = noteEle.value;
-
-        console.log({ title, description, dueDate, priority, note })
-        // const inputedTask = new Todo(title, description, dueDate, priority, note);
-        // addNewTask(inputedTask);
-        addNewTask(createNewTask(title, description, dueDate, priority, note));
-        console.log(myTodoList)
-        // console.log(generateHtml())
-        renderTodoHtml();
-        clearUserInput();
-        addNewTaskBtnEle.style = "display: block";
-        inputContainerEle.style = "display: none";
+        displayWarningEle.innerHTML = "An important field is empty. Please, fill all the boxes!!!";
+        return;
     }
+
+    const newTask = createNewTask(
+        titleEle.value,
+        descriptionEle.value,
+        dueDateEle.value,
+        priorityEle.value,
+        noteEle.value
+    );
+
+    myTodoList.push(newTask);
+    renderTodoHtml();
+    clearUserInput();
+    addNewTaskBtnEle.style = "display: block";
+    inputContainerEle.style = "display: none";
 })
 
-
+addNewTaskBtnEle.addEventListener('click', () => {
+    inputContainerEle.style = "display: grid";
+    addNewTaskBtnEle.style = "display: none";
+})
