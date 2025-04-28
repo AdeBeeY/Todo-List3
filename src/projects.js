@@ -1,19 +1,18 @@
-export { addNewProjectEle }
-export { Project }
-export { projects }
-export { currentProjectIndex }
-export { createNewProjectBtnEle }
-export { setupCheckboxListeners }
-export { init }
+export { addNewProjectEle, Project, projects, currentProjectIndex, createNewProjectBtnEle, setupCheckboxListeners, init, titleNewProjectEle, descriptionNewProjectEle, dueDateNewProjectEle, priorityNewProjectEle, noteNewProjectEle }
 
-import { renderTodoHtml } from "./index"
+import { renderTodoHtml, createNewTask, Todo, generateHtml, clearUserInput } from "./index"
 
 const addNewProjectEle = document.querySelector('.add-new-project');
 const addNewProjectBoxEle = document.querySelector('.add-new-project-box');
 const createNewProjectBtnEle = document.querySelector('.create-new-project');
 const newProjectEle = document.querySelector('.new-project');
 const checklistEle = document.getElementById('checklist');
-const displayProjectsEle = document.querySelector('.display-projects');
+// const displayProjectsEle = document.querySelector('.display-projects');
+const titleNewProjectEle = document.querySelector('.title-new-project');
+const descriptionNewProjectEle = document.querySelector('.description-new-project');
+const dueDateNewProjectEle = document.querySelector('.dueDate-new-project');
+const priorityNewProjectEle = document.querySelector('.priority-new-project');
+const noteNewProjectEle = document.querySelector('.note-new-project');
 
 class Project {
   constructor(name) {
@@ -32,20 +31,29 @@ addNewProjectEle.addEventListener('click', () => {
   const newProject = new Project(newProjectName);
   projects.push(newProject);
 
-  console.log(projects)
-
   const li = document.createElement("li");
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.name = "projectCheckbox";
   checkbox.value = projects.length - 1;
 
-  console.log(checkbox)
-
   const text = document.createTextNode(` ${newProjectName}`);
   li.appendChild(checkbox);
   li.appendChild(text);
   checklistEle.appendChild(li);
+
+  const newProjectTask = createNewTask(
+    titleNewProjectEle.value,
+    descriptionNewProjectEle.value,
+    dueDateNewProjectEle.value,
+    priorityNewProjectEle.value,
+    noteNewProjectEle.value
+  );
+
+  newProject.todos.push(newProjectTask);
+  generateHtml(newProject.todos);
+  renderTodoHtml(newProject.todos);
+  clearUserInput();
 
   newProjectEle.value = '';
   addNewProjectBoxEle.style = "display: none";
@@ -61,7 +69,6 @@ createNewProjectBtnEle.addEventListener('click', () => {
 function setupCheckboxListeners() {
   const checkboxes = document.querySelectorAll('input[name="projectCheckbox"]');
   checkboxes.forEach(checkbox => {
-    console.log(checkbox)
     checkbox.addEventListener('change', function () {
       if (this.checked) {
         checkboxes.forEach(cb => cb.checked = false);

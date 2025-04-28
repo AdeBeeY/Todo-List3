@@ -1,7 +1,7 @@
 import "./styles.css";
-import { addNewProjectEle, Project, projects, currentProjectIndex, createNewProjectBtnEle, setupCheckboxListeners, init } from "./projects";
+import { addNewProjectEle, Project, projects, currentProjectIndex, createNewProjectBtnEle, setupCheckboxListeners, init, titleNewProjectEle, descriptionNewProjectEle, dueDateNewProjectEle, priorityNewProjectEle, noteNewProjectEle } from "./projects";
 
-export { renderTodoHtml }
+export { renderTodoHtml, createNewTask, Todo, generateHtml, clearUserInput }
 
 const displayEle = document.querySelector('.js-display');
 const displayWarningEle = document.querySelector('.display-warning');
@@ -31,11 +31,6 @@ function createNewTask(title, description, dueDate, priority, note) {
 }
 
 // Add task into myTodoList
-// function addNewTask(todo) {
-//     myTodoList.push(todo);
-//     return myTodoList;
-// }
-
 function addNewTask(todo) {
     myTodoList.push(todo);
     return myTodoList;
@@ -48,18 +43,12 @@ addNewTask(createNewTask('Cinema', 'John Wick', '15-05-2025', 'Normal', 'Go with
 addNewTask(createNewTask('Vacation', 'London with family', '06-05-2025', 'Important', 'Remember to top-up Debit cards'));
 addNewTask(createNewTask('Tour', 'U.S', '08-05-2025', 'Normal', 'See things a new'));
 
-// console.table(myTodoList);
-// console.log(myTodoList);
-
-console.log(myTodoList)
-
 let totalHtml = '';
 
-// Generate HTML elements for each todo task
-function generateHtml() {
+function generateHtml(array) {
     totalHtml = '';
 
-    myTodoList.forEach((todo, index) => {
+    array.forEach((todo, index) => {
         totalHtml += `
         <div class='title'>${todo.title}</div>
         <div class='description'>${todo.description}</div>
@@ -69,13 +58,11 @@ function generateHtml() {
         <button class='js-delete-btn' data-index='${index}'>Delete</button>
       `;
     });
-    console.log(totalHtml)
     return totalHtml;
 };
 
-// Display all the Todo tasks on the the webpage
-function renderTodoHtml() {
-    generateHtml();
+function renderTodoHtml(array) {
+    generateHtml(array);
     displayEle.innerHTML = totalHtml;
 
     const deleteBtns = document.querySelectorAll('.js-delete-btn');
@@ -83,20 +70,30 @@ function renderTodoHtml() {
         btn.addEventListener('click', () => {
             const index = parseInt(btn.getAttribute('data-index'));
             myTodoList.splice(index, 1);
-            renderTodoHtml(); // Re-render after deletion
+            renderTodoHtml(myTodoList); // Re-render after deletion
         });
     });
 };
-renderTodoHtml();
+renderTodoHtml(myTodoList);
 
 // Clear user input
-function clearUserInput() {
-    titleEle.value = '';
-    descriptionEle.value = '';
-    dueDateEle.value = '';
-    priorityEle.value = '';
-    noteEle.value = '';
-};
+function clearUserInput(task) {
+    if (task === 'newTask') {
+        titleEle.value = '';
+        descriptionEle.value = '';
+        dueDateEle.value = '';
+        priorityEle.value = '';
+        noteEle.value = '';
+        console.log("New Task");
+    } else {
+        titleNewProjectEle.value = '';
+        descriptionNewProjectEle.value = '';
+        dueDateNewProjectEle.value = '';
+        priorityNewProjectEle.value = '';
+        noteNewProjectEle.value = '';
+        console.log("Project Task");
+    }
+}
 
 // Add Event Listener to Add button and check it some boxes are blank
 addBtnEle.addEventListener('click', () => {
@@ -116,10 +113,11 @@ addBtnEle.addEventListener('click', () => {
     );
 
     myTodoList.push(newTask);
-    renderTodoHtml();
-    clearUserInput();
+    renderTodoHtml(myTodoList);
+    clearUserInput('newTask');
     addNewTaskBtnEle.style = "display: block";
     inputContainerEle.style = "display: none";
+    displayWarningEle.innerHTML = '';
 })
 
 addNewTaskBtnEle.addEventListener('click', () => {

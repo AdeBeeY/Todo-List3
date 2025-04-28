@@ -15,7 +15,14 @@
     <button class="create-new-project">Create New Project</button>
 
     <div class="add-new-project-box" style="display: none;">
-      <input class="new-project" placeholder="Create a new project">
+      <input class="new-project" placeholder="New Project Name">
+      <div class="new-task-from-new-project">Add Task here:
+        <input class="title-new-project" placeholder="Title" required>
+        <input class="description-new-project" placeholder="Task Description" required>
+        <input class="dueDate-new-project" type="date" required>
+        <input class="priority-new-project" placeholder="Priority" required>
+        <input class="note-new-project" placeholder="Note">
+      </div>
       <button class="add-new-project">Add New Project</button>
     </div>
 
@@ -23,23 +30,20 @@
     <ul id="checklist" class="checklist">
       <!-- <li><input id="default-project" type="checkbox" checked> Default Project</li> -->
     </ul>
-    <div class="display-projects"></div>
-  </div>
+    <!-- <div class="display-projects"></div> -->
 
-  <button class="add-new-task">Add New Task</button>
 
-  <div class="input-container">
-    <input class="title" placeholder="Title" required>
-    <input class="description" placeholder="Task Description" required>
-    <input class="dueDate" type="date" required>
-    <input class="priority" placeholder="Priority" required>
-    <input class="note" placeholder="Note">
+    <button class="add-new-task">Add New Task</button>
 
-    <div class="select-project">
+    <div class="input-container">
+      <input class="title" placeholder="Title" required>
+      <input class="description" placeholder="Task Description" required>
+      <input class="dueDate" type="date" required>
+      <input class="priority" placeholder="Priority" required>
+      <input class="note" placeholder="Note">
 
-      Where to add your task</div>
-
-    <button class="addBtn js-add-btn">Add</button>
+      <button class="addBtn js-add-btn">Add</button>
+    </div>
   </div>
 
   <div class="display js-display"></div>
