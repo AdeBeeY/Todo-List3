@@ -4,7 +4,6 @@ import { addNewProjectEle, Project, projects, currentProjectIndex, createNewProj
 export { renderTodoHtml, createNewTask, Todo, generateHtml, clearUserInput }
 
 const displayEle = document.querySelector('.js-display');
-const displayWarningEle = document.querySelector('.display-warning');
 const titleEle = document.querySelector('.title');
 const descriptionEle = document.querySelector('.description');
 const dueDateEle = document.querySelector('.dueDate');
@@ -63,6 +62,7 @@ function generateHtml(array) {
 
 function renderTodoHtml(array) {
     generateHtml(array);
+    displayEle.style = 'display: grid';
     displayEle.innerHTML = totalHtml;
 
     const deleteBtns = document.querySelectorAll('.js-delete-btn');
@@ -99,8 +99,8 @@ function clearUserInput(task) {
 addBtnEle.addEventListener('click', () => {
     // Check if the required boxes are filled
     if (titleEle.value === '' || descriptionEle.value === '' || dueDateEle.value === '' || priorityEle.value === '') {
-        displayEle.innerHTML = '';
-        displayWarningEle.innerHTML = "An important field is empty. Please, fill all the boxes!!!";
+        displayEle.style = 'display: block; color: red; font-size: 25px; font-weight: 800; background-color: white;';
+        displayEle.innerHTML = "An important field is empty. Please, fill all the boxes!!!";
         return;
     }
 
@@ -115,9 +115,8 @@ addBtnEle.addEventListener('click', () => {
     myTodoList.push(newTask);
     renderTodoHtml(myTodoList);
     clearUserInput('newTask');
-    addNewTaskBtnEle.style = "display: block";
+    addNewTaskBtnEle.style = "display: grid";
     inputContainerEle.style = "display: none";
-    displayWarningEle.innerHTML = '';
 })
 
 addNewTaskBtnEle.addEventListener('click', () => {

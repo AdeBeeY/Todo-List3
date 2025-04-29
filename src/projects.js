@@ -7,7 +7,6 @@ const addNewProjectBoxEle = document.querySelector('.add-new-project-box');
 const createNewProjectBtnEle = document.querySelector('.create-new-project');
 const newProjectEle = document.querySelector('.new-project');
 const checklistEle = document.getElementById('checklist');
-// const displayProjectsEle = document.querySelector('.display-projects');
 const titleNewProjectEle = document.querySelector('.title-new-project');
 const descriptionNewProjectEle = document.querySelector('.description-new-project');
 const dueDateNewProjectEle = document.querySelector('.dueDate-new-project');

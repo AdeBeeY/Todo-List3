@@ -17,6 +17,25 @@ body {
   margin-bottom: 20px;
 }
 
+.add-new-project-box {
+  background-color: rgba(170, 255, 184, 0.555);
+  justify-items: center;
+  padding: 30px 20px;
+  margin-top: 15px;
+}
+
+.add-new-project-box:first-child {
+  color: blue;
+  border: solid red 5px;
+}
+
+.new-project {
+  padding: 10px;
+  font-size: 16px;
+  /* background-color: lightslategray; */
+  margin-bottom: 15px;
+}
+
 .display {
   display: grid;
   grid-template-columns: 150px 250px 100px 80px 200px 100px;
@@ -93,6 +112,7 @@ input {
   font-weight: 500;
   padding: 10px;
   border-radius: 20px;
+  margin-top: 15px;
 }
 
 .addBtn:hover,
